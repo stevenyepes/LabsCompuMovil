@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RelativeLayout</string>
+    <string name="reminder">Reminder Name</string>
+    <string name="date">Wed,August 10, 2016</string>
+    <string name="done">Done</string>
+    <string name="times">15:06</string>
+</resources>
