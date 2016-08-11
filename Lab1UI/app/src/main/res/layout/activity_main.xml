@@ -13,22 +13,20 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/to"
+        android:hint="@string/firstName"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/subject"/>
+        android:hint="@string/lastName"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:gravity="top"
-        android:hint="@string/message" />
+        android:layout_height="wrap_content"
+        android:hint="@string/gender" />
     <Button
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:gravity="center"
         android:text="@string/send" />
 
