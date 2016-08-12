@@ -10,24 +10,141 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="co.edu.udea.compumovil.gr4.lab1ui.MainActivity">
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/firstName"
-        />
-    <EditText
+        android:orientation="vertical"
+        android:layout_weight="3">
+
+        <EditText
+            android:id="@+id/editText_FirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/firstName"
+            android:inputType="textCapWords"
+            />
+        <EditText
+            android:id="@+id/editText_LastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastName"
+            android:inputType="textCapWords"
+            />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textSize="18dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:checked="true"
+                android:text="@string/male"
+                android:onClick="onRadioButtonClicked"/>
+
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:checked="false"
+                android:text="@string/female"
+                android:onClick="onRadioButtonClicked"/>
+
+        </RadioGroup>
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autoComplete_Country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/country"
+            android:inputType="textAutoComplete"/>
+
+        <EditText
+            android:id="@+id/editText_Phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/editText_Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/address"
+            android:inputType="textPostalAddress"/>
+
+
+        <EditText
+            android:id="@+id/editText_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView_Hobbie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hobbies"
+                android:textSize="18dp"
+                android:layout_marginTop="2dp" />
+
+            <Spinner
+                android:id="@+id/spinner_hobbies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_Hobbie"/>
+
+        </RelativeLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favorite"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/lastName"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/gender" />
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:gravity="center"
-        android:text="@string/send" />
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button_Show"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/send"
+            android:textSize="16dp"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="shkalfkkhfdsfha\n
+            hkshfkasfhsakfhakshakfhsakfhjsa\n
+            kasdkjgsajdgsjdgasjdgsjjasdgjas"
+            android:layout_below="@id/button_Show"
+            />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

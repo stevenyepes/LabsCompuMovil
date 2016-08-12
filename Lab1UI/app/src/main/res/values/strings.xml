@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Lab1UI</string>
-    <string name="send">Send</string>
+    <string name="send">Show</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="gender">Gender</string>
@@ -11,4 +11,20 @@
     <string name="email">Email</string>
     <string name="hobbies">Hobbies</string>
     <string name="favorite">Favorite</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Hobbies Adapter  -->
+    <string-array name="hobbies_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 </resources>
