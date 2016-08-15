@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lab1UI</string>
+    <string name="send">Mostrar</string>
+    <string name="firstName">Nombres*</string>
+    <string name="lastName">Apellidos</string>
+    <string name="gender">Género</string>
+    <string name="birthdate">Fecha de Nacimiento</string>
+    <string name="country">País*</string>
+    <string name="phone">Teléfono*</string>
+    <string name="address">Dirección</string>
+    <string name="email">Email*</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="favorite">Favorito</string>
+    <string name="male">M</string>
+    <string name="female">F</string>
+    <string name="action_settings">Configuración</string>
+    <string name="error_message">Por vavor verifique que los campos * estén correctos</string>
+
+
+    <!-- Hobbies Adapter  -->
+    <string-array name="hobbies_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+</resources>

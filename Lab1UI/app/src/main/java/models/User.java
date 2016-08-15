@@ -16,7 +16,7 @@ public class User {
     private String phone;
     private String address;
     private String email;
-    private List<String> hobbies;
+    private String hobbies;
     private String favorite;
 
     public User() {
@@ -31,7 +31,7 @@ public class User {
     }
 
     public User(String phone, String firstName, String lastName, String gender,
-                Date birthDate, String country, String address, String email, List<String> hobbies,
+                Date birthDate, String country, String address, String email, String hobbies,
                 String favorite) {
 
         this.phone = phone;
@@ -118,11 +118,29 @@ public class User {
         this.favorite = favorite;
     }
 
-    public List<String> getHobbies() {
+    public String getHobbies() {
         return hobbies;
     }
 
-    public void setHobbies(List<String> hobbies) {
+    public void setHobbies(String hobbies) {
         this.hobbies = hobbies;
+    }
+
+    @Override
+    public String toString() {
+
+        String temp = "Firstname: " + getFirstName() + "\n" +
+                "Lastname: " + getLastName() +  "\n" +
+                "Gender: " + getGender() + "\n" +
+                "Birthdate: " + getBirthDate() +  "\n" +
+                "Address: " +getAddress() +  "\n" +
+                "Country: " + getCountry() +  "\n" +
+                "Phone: " + getPhone() +  "\n" +
+                "Email: " + getEmail() +  "\n" +
+                "Favorite: " + getFavorite() +  "\n"  +
+                "Hobbies: " + getHobbies().toString()
+                ;
+
+        return temp;
     }
 }
