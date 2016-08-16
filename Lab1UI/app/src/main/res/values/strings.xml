@@ -16,16 +16,17 @@
     <string name="action_settings">Settings</string>
     <string name="error_message">Fields with * are required</string>
 
+
     <!-- Hobbies Adapter  -->
     <string-array name="hobbies_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Play videogames</item>
+        <item>Listen to music</item>
+        <item>Go to the cinema</item>
+        <item>Ride on bicycle</item>
+        <item>Dance</item>
+        <item>Go out with my friends</item>
+        <item>Read books</item>
+        <item>Learning other languages</item>
     </string-array>
 
 </resources>

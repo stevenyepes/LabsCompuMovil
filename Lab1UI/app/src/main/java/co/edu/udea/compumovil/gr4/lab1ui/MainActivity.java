@@ -27,8 +27,9 @@ import models.User;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     private User user;
-    private static final String[] COUNTRIES = {"Argentina", "Bolivia", "Colombia", "Brazil", "Costa Rica", "Honduras",
-            "Mexico", "Ecuador", "El Salvador"};
+    private static final String[] COUNTRIES = {"Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
+            "Costa Rica", "Cuba", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala","Haiti",
+            "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Uruguay", "Venezuela"};
 
     private String hobbie;
 

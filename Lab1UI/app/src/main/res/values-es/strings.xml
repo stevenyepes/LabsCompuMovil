@@ -20,13 +20,14 @@
 
     <!-- Hobbies Adapter  -->
     <string-array name="hobbies_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Jugar videojuegos</item>
+        <item>Escuchar música</item>
+        <item>Ir a cine</item>
+        <item>Montar bicicleta</item>
+        <item>Bailar</item>
+        <item>Salir con mis amigos</item>
+        <item>Leer libros</item>
+        <item>Aprender otros idiomas</item>
     </string-array>
+
 </resources>
