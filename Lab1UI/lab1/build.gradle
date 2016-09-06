@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        udea {
-            keyAlias 'labudea'
-            keyPassword 'mnbvcxz'
-            storeFile file('C:/Users/Steven/.android/keystores/androidlabs.jks')
-            storePassword 'nosesifunciona'
-        }
-    }
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
     defaultConfig {
