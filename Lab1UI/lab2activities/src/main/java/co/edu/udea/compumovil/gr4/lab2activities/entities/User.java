@@ -2,10 +2,12 @@ package co.edu.udea.compumovil.gr4.lab2activities.entities;
 
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
+
 /**
  * Created by Steven on 06/09/2016.
  */
-public class User extends SugarRecord {
+public class User extends SugarRecord implements Serializable{
 
     private String username;
     private String email;
