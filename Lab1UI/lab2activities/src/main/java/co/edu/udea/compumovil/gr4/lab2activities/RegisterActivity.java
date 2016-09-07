@@ -1,5 +1,6 @@
 package co.edu.udea.compumovil.gr4.lab2activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,11 +43,25 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !age_s.isEmpty()) {
             int age = Integer.parseInt(age_s);
-            User user = new User(name, email, password, age);
-            user.save();
-            Toast.makeText(getApplicationContext(),
-                    "Congratulations! your account was created", Toast.LENGTH_SHORT)
-            .show();
+            User user;
+            try{
+                user = User.find(User.class,"email=?", email).get(0);
+
+                Toast.makeText(getApplicationContext(),
+                        "Email already exist", Toast.LENGTH_SHORT)
+                        .show();
+
+            }catch (Exception e) {
+                user = new User(name, email, password, age);
+                user.save();
+                Toast.makeText(getApplicationContext(),
+                        "Congratulations! your account was created", Toast.LENGTH_SHORT)
+                        .show();
+
+                Intent intent = new Intent(this,MainActivity.class);
+                startActivity(intent);
+            }
+
 
         } else {
             Toast.makeText(getApplicationContext(),
