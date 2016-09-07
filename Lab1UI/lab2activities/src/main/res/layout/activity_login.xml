@@ -50,7 +50,8 @@
             android:layout_marginTop="20dip"
             android:background="@color/btn_login_bg"
             android:text="@string/btn_login"
-            android:textColor="@color/btn_login" />
+            android:textColor="@color/btn_login"
+            android:onClick="onLoginClick"/>
 
         <!-- Link to Login Screen -->
 
@@ -63,7 +64,8 @@
             android:text="@string/btn_link_to_register"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:onClick="onSignUpClick"/>
     </LinearLayout>
 
 </LinearLayout>

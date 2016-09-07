@@ -42,13 +42,26 @@
             android:textColorHint="@color/input_register_hint" />
 
         <EditText
-            android:id="@+id/password"
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint" />
+
+        <EditText
+            android:id="@+id/age"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/input_register_bg"
-            android:hint="@string/hint_password"
-            android:inputType="textPassword"
+            android:hint="@string/hint_age"
+            android:inputType="number"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/input_register"
@@ -63,7 +76,8 @@
             android:layout_marginTop="20dip"
             android:background="#ea4c88"
             android:text="@string/btn_register"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:onClick="onButtonRegisterClick"/>
 
         <!-- Link to Login Screen -->
 
