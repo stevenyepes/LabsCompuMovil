@@ -71,6 +71,7 @@ public class Login extends AppCompatActivity {
             // Check if use and password are correct
             if(user.getPassword().equals(password)){
                 Intent intent = new Intent(this,MainActivity.class);
+                intent.putExtra("profile_email",email);
                 startActivity(intent);
             }else {
                 Toast.makeText(getApplicationContext(),

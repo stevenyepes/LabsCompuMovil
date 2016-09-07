@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                         .show();
 
                 Intent intent = new Intent(this,MainActivity.class);
+                intent.putExtra("profile_email",email);
                 startActivity(intent);
             }
 
