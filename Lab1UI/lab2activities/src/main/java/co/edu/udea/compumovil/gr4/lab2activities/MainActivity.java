@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new ProfileFragment();
             Bundle args = new Bundle();
             args.putSerializable("profile", profile);
+            fragment.setArguments(args);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
