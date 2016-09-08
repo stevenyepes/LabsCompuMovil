@@ -1,6 +1,7 @@
 package co.edu.udea.compumovil.gr4.lab2activities;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,13 +18,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import co.edu.udea.compumovil.gr4.lab2activities.entities.Place;
 import co.edu.udea.compumovil.gr4.lab2activities.entities.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     User profile;
+    Place places;
     private final String PROFILE_TAG = "PROFILE";
+    private static final int REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                Intent intent =  new Intent(getApplicationContext(), AddPlace.class);
+                startActivityForResult(intent,REQUEST_CODE);
+
             }
         });
 
@@ -94,16 +100,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Fragment fragment = null;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_places) {
+
+            fragment = new PlacesFragment();
+            Bundle args = new Bundle();
+            args.putSerializable("profile", profile);
+
+        } else if (id == R.id.nav_profile) {
+
             fragment = new ProfileFragment();
             Bundle args = new Bundle();
             args.putSerializable("profile", profile);
             fragment.setArguments(args);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_logout) {
 
         }
 
