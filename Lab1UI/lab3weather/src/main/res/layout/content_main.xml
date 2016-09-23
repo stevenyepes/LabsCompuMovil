@@ -16,11 +16,45 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="City: "
+        android:textStyle=""
+        android:textSize="20dp"
+        android:id="@+id/name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature: "
+        android:id="@+id/temperature"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity: "
+        android:id="@+id/humidity"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        android:id="@+id/description"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weather_img"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last display Date: "
+        android:id="@+id/date"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get data"
         android:onClick="onClickButton"/>
+
+
 </LinearLayout>

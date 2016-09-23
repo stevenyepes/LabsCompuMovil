@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +35,8 @@ import co.edu.udea.compumovil.gr4.lab3weather.models.WeatherFull;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "weatherApp";
+    private TextView textV_name, textV_temp, textV_hum, textV_desc, textV_date;
+    //private ImageView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        textV_name = (TextView)findViewById(R.id.name);
+        textV_temp = (TextView)findViewById(R.id.temperature);
+        textV_hum = (TextView)findViewById(R.id.humidity);
+        textV_desc = (TextView)findViewById(R.id.description);
+        textV_date = (TextView)findViewById(R.id.date);
 
     }
 
@@ -88,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
                                 WeatherFull weather = gson.fromJson(jo, WeatherFull.class);
 
                                 if(weather != null) {
+
+
+                                    Util util =  new Util();
+                                    Float tempCelsius = util.kelvinToCelsius(Float.parseFloat(weather.getDataWeather().getTemp()));
+                                    textV_temp.setText(textV_temp.getText().toString() + tempCelsius);
+                                    textV_hum.setText(textV_hum.getText().toString()+ weather.getDataWeather().getHumidity());
+                                    textV_desc.setText(textV_desc.getText().toString() + weather.getWeather()[0].getDescription());
                                     Log.d(TAG, weather.getDataWeather().getHumidity());
 
                                     // setear la vista con los datos del clima
@@ -121,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
         String URL = BASE_URL + REQUEST + PARAMS;
         sendRequest(URL);
     }
+
+
 
 }
 
