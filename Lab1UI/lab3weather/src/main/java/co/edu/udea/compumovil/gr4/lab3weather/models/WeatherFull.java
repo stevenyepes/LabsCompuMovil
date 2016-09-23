@@ -10,6 +10,15 @@ public class WeatherFull {
     Weather[] weather;
     @SerializedName("main")
     DataWeather dataWeather;
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Weather[] getWeather() {
         return weather;
