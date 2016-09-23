@@ -7,32 +7,17 @@ import java.util.Calendar;
  */
 public class Weather {
 
-    String temp;
-    String humidity;
+    String main;
     String description;
-    Calendar lastView;
+    String icon;
 
-    public Weather(String temp, String humidity, String description, Calendar lastView) {
-        this.temp = temp;
-        this.humidity = humidity;
-        this.description = description;
-        this.lastView = lastView;
+
+    public String getMain() {
+        return main;
     }
 
-    public String getTemp() {
-        return temp;
-    }
-
-    public void setTemp(String temp) {
-        this.temp = temp;
-    }
-
-    public String getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(String humidity) {
-        this.humidity = humidity;
+    public void setMain(String main) {
+        this.main = main;
     }
 
     public String getDescription() {
@@ -43,11 +28,11 @@ public class Weather {
         this.description = description;
     }
 
-    public Calendar getLastView() {
-        return lastView;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setLastView(Calendar lastView) {
-        this.lastView = lastView;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
