@@ -9,14 +9,11 @@ public class DataWeather {
     String pressure;
     String humidity;
 
-
     public String getTemp() {
         return temp;
     }
 
-    public void setTemp(String temp) {
-        this.temp = temp;
-    }
+    public void setTemp(String temp) { this.temp = temp; }
 
     public String getPressure() {
         return pressure;

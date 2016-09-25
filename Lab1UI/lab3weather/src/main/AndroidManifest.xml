@@ -23,7 +23,9 @@
 
         <service
             android:name=".WeatherPullService"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".SelectCity"></activity>
     </application>
 
 </manifest>

@@ -1,8 +1,12 @@
 package co.edu.udea.compumovil.gr4.lab3weather;
 
+import android.content.Intent;
 import android.os.Bundle;
+import java.text.DateFormat;
+import java.util.Date;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "weatherApp";
     private TextView textV_name, textV_temp, textV_hum, textV_desc, textV_date;
     //private ImageView
+    private FragmentMenu fmenu;
+    private EditText choicedCity;
+    private static final int REQUEST_CODE = 10;
+    private static String city = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
         textV_hum = (TextView)findViewById(R.id.humidity);
         textV_desc = (TextView)findViewById(R.id.description);
         textV_date = (TextView)findViewById(R.id.date);
+
+        /*if(savedInstanceState == null){
+            fmenu = new FragmentMenu();
+            FragmentTransaction fMenuTransaction = getSupportFragmentManager().beginTransaction();
+            fMenuTransaction.add(R.id.main_layout, fmenu, "FMENU");
+            fMenuTransaction.commit();
+
+
+        }*/
 
     }
 
@@ -69,7 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+
+            Intent intentCity = new Intent(getApplicationContext(), SelectCity.class);
+            startActivityForResult(intentCity, REQUEST_CODE);
+
+            /*fmenu = new FragmentMenu();
+            FragmentTransaction fMenuTransaction = getSupportFragmentManager().beginTransaction();
+            fMenuTransaction.add(R.id.main_layout, fmenu);
+            fMenuTransaction.commit();
+            return true;*/
         }
 
         return super.onOptionsItemSelected(item);
@@ -101,16 +127,19 @@ public class MainActivity extends AppCompatActivity {
 
                                     Util util =  new Util();
                                     Float tempCelsius = util.kelvinToCelsius(Float.parseFloat(weather.getDataWeather().getTemp()));
-                                    textV_temp.setText(textV_temp.getText().toString() + tempCelsius);
-                                    textV_hum.setText(textV_hum.getText().toString()+ weather.getDataWeather().getHumidity());
-                                    textV_desc.setText(textV_desc.getText().toString() + weather.getWeather()[0].getDescription());
-                                    Log.d(TAG, weather.getDataWeather().getHumidity());
+
+                                    textV_name.setText(weather.getName());
+                                    textV_temp.setText(tempCelsius + "ºC");
+                                    textV_hum.setText(weather.getDataWeather().getHumidity());
+                                    textV_desc.setText(weather.getWeather()[0].getDescription());
+
+                                    String dateTime = DateFormat.getDateTimeInstance().format(new Date());
+                                    textV_date.setText(dateTime);
 
                                     // setear la vista con los datos del clima
                                 }
                                 else
                                     Log.d(TAG, "**earthQuakes is null " );
-
                             }
                         }, new Response.ErrorListener() {
 
@@ -118,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         //mTextView.setText("Error: " + error.toString());
                         Log.d(TAG, "Error: " + error.toString());
-
                     }
                 }
                 );
@@ -126,11 +154,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
+            if(data.hasExtra("carryCity")){
+                city = data.getExtras().getString("carryCity");
+            }
+        }
+
+        //super.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void onClickButton(View view) {
 
 
         final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
-        String city = "london";
+
+
         final String PARAMS = "?q=" + city + "&appid=" + APPID;
         final String REQUEST = "/weather";
         final String BASE_URL = "http://api.openweathermap.org/data/2.5/";

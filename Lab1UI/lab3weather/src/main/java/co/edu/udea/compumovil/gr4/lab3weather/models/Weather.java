@@ -11,7 +11,6 @@ public class Weather {
     String description;
     String icon;
 
-
     public String getMain() {
         return main;
     }

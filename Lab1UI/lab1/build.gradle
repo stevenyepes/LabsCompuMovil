@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '24.0.2'
     defaultConfig {
         applicationId "co.edu.udea.compumovil.gr4.lab1ui"
         minSdkVersion 15
