@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textColor="#7A6A53"
             android:layout_marginLeft="8dp"
             android:textSize="20dp"
             android:id="@+id/name"/>
@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textColor="#7A6A53"
             android:textSize="15dp"
             android:layout_marginLeft="8dp"
             android:id="@+id/temperature"/>
@@ -78,7 +78,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textColor="#7A6A53"
             android:textSize="15dp"
             android:layout_marginLeft="8dp"
             android:id="@+id/humidity"/>
@@ -101,7 +101,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textColor="#7A6A53"
             android:textSize="15dp"
             android:layout_marginLeft="8dp"
             android:id="@+id/description"/>
@@ -131,7 +131,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textColor="#7A6A53"
             android:textSize="15dp"
             android:layout_marginLeft="8dp"
             android:id="@+id/date"/>
@@ -144,6 +144,7 @@
         android:text="Get data"
         android:onClick="onClickButton"
         android:id="@+id/button"
+        android:background="#99B2B7"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"/>
 

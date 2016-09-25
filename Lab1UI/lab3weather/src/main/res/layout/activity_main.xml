@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:id="@+id/main_layout"
+    android:background="#D5DED9"
     tools:context="co.edu.udea.compumovil.gr4.lab3weather.MainActivity">
 
     <android.support.design.widget.AppBarLayout

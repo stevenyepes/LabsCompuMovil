@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#D5DED9"
     tools:context="co.edu.udea.compumovil.gr4.lab3weather.SelectCity">
 
 
@@ -57,6 +58,7 @@
         android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         android:text="Elegir"
+        android:background="#99B2B7"
         android:onClick="onCityEntered"/>
 
 </LinearLayout>
