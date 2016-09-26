@@ -10,8 +10,14 @@ import android.util.Log;
  */
 public class StartServiceReciver extends BroadcastReceiver{
     @Override
+
+
     public void onReceive(Context context, Intent intent) {
+
+        String city = intent.getExtras().getString("cityToService");
+
         Intent dailyUpdater = new Intent(context, WeatherPullService.class);
+        dailyUpdater.putExtra("cityToService", city);
         context.startService(dailyUpdater);
         Log.d("AlarmReceiver", "Called context.startService from AlarmReceiver.onReceive");
     }

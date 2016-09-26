@@ -1,9 +1,13 @@
 package co.edu.udea.compumovil.gr4.lab3weather;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -179,19 +183,30 @@ public class MainActivity extends AppCompatActivity {
     public void onClickButton(View view) {
 
 
+
+        Calendar updateTime = Calendar.getInstance();
+        updateTime.setTimeZone(TimeZone.getDefault());
+        updateTime.set(Calendar.HOUR_OF_DAY, 12);
+        updateTime.set(Calendar.MINUTE, 30);
+
+        Intent iBroadcast = new Intent(getApplicationContext(), StartServiceReciver.class);
+        iBroadcast.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        iBroadcast.setAction("co.edu.udea.compumovil.gr4.lab3weather.action.RUN_INTENT_BROADCAST");
+        iBroadcast.putExtra("cityToService", city);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, iBroadcast, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(getApplicationContext().ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), 30*1000, pendingIntent);
+
+        Toast.makeText(getApplicationContext(), "Broadcast started", Toast.LENGTH_SHORT).show();
 /*
-        Intent iService = new Intent(getApplicationContext(), WeatherPullService.class);
-        iService.setAction("co.edu.udea.compumovil.gr4.lab3weather.action.RUN_INTENT_SERVICE");
-        iService.putExtra("cityToService", city);
-        startService(iService);*/
-
-
         final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
         final String PARAMS = "?q=" + city + "&appid=" + APPID;
         final String REQUEST = "/weather";
         final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
         String URL = BASE_URL + REQUEST + PARAMS;
-        sendRequest(URL);
+        sendRequest(URL);*/
     }
 
 
