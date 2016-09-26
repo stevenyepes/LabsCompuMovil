@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "weatherApp";
     private TextView textV_name, textV_temp, textV_hum, textV_desc, textV_date;
-    //private ImageView
+    private ImageView imgWeather;
     private FragmentMenu fmenu;
     private EditText choicedCity;
     private static final int REQUEST_CODE = 10;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         textV_hum = (TextView)findViewById(R.id.humidity);
         textV_desc = (TextView)findViewById(R.id.description);
         textV_date = (TextView)findViewById(R.id.date);
+        imgWeather = (ImageView) findViewById(R.id.weather_img);
 
         /*if(savedInstanceState == null){
             fmenu = new FragmentMenu();
@@ -114,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
 
-
                                 JsonParser jsonParser = new JsonParser();
                                 JsonObject jo = (JsonObject) jsonParser.parse(response.toString());
 
@@ -123,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
                                 WeatherFull weather = gson.fromJson(jo, WeatherFull.class);
 
                                 if(weather != null) {
-
-
                                     Util util =  new Util();
                                     Float tempCelsius = util.kelvinToCelsius(Float.parseFloat(weather.getDataWeather().getTemp()));
 
@@ -133,13 +132,24 @@ public class MainActivity extends AppCompatActivity {
                                     textV_hum.setText(weather.getDataWeather().getHumidity());
                                     textV_desc.setText(weather.getWeather()[0].getDescription());
 
+                                    String imgDesc = weather.getWeather()[0].getDescription();
+                                    if(imgDesc.equals("broken clouds")){
+                                        //imgWeather.setImageResource(R.drawable.ic_broken_clouds);
+                                    }else if(imgDesc.equals("few clouds")){
+                                        //imgWeather.setImageResource(R.drawable.ic_few_clouds);
+                                    }else if(imgDesc.equals("light rain")){
+                                        //imgWeather.setImageResource(R.drawable.ic_light_rain);
+                                    }else if(imgDesc.equals("scattered clouds")){
+                                        //imgWeather.setImageResource(R.drawable.ic_scattered_clouds);
+                                    }else if(imgDesc.equals("clear sky")){
+                                       // imgWeather.setImageResource(R.drawable.ic_clear_sky);
+                                    }
+//few clouds, broken clouds, light rain, scattered clouds, clear sky
                                     String dateTime = DateFormat.getDateTimeInstance().format(new Date());
                                     textV_date.setText(dateTime);
-
-                                    // setear la vista con los datos del clima
                                 }
                                 else
-                                    Log.d(TAG, "**earthQuakes is null " );
+                                    Toast.makeText(getApplicationContext(), "Please enter a city in the menu", Toast.LENGTH_SHORT).show();
                             }
                         }, new Response.ErrorListener() {
 
@@ -169,9 +179,14 @@ public class MainActivity extends AppCompatActivity {
     public void onClickButton(View view) {
 
 
+/*
+        Intent iService = new Intent(getApplicationContext(), WeatherPullService.class);
+        iService.setAction("co.edu.udea.compumovil.gr4.lab3weather.action.RUN_INTENT_SERVICE");
+        iService.putExtra("cityToService", city);
+        startService(iService);*/
+
+
         final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
-
-
         final String PARAMS = "?q=" + city + "&appid=" + APPID;
         final String REQUEST = "/weather";
         final String BASE_URL = "http://api.openweathermap.org/data/2.5/";

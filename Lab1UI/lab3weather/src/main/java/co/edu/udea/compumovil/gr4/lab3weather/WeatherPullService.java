@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +20,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 import co.edu.udea.compumovil.gr4.lab3weather.models.WeatherFull;
 
@@ -35,19 +39,26 @@ public class WeatherPullService extends IntentService {
     public WeatherPullService() {
         super("WeatherPullService");
     }
+    private TextView textV_name, textV_temp, textV_hum, textV_desc, textV_date;
+
+
+
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             Log.d("MyService", "About to execute MyTask");
 
+            String city = intent.getExtras().getString("cityToService");
+
             final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
-            String city = "london";
+            //String city = "london";
             final String PARAMS = "?q=" + city + "&appid=" + APPID;
             final String REQUEST = "/weather";
             final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
             String URL = BASE_URL + REQUEST + PARAMS;
             sendRequest(URL);
+
 
         }
     }
@@ -66,7 +77,6 @@ public class WeatherPullService extends IntentService {
                             @Override
                             public void onResponse(JSONObject response) {
 
-
                                 JsonParser jsonParser = new JsonParser();
                                 JsonObject jo = (JsonObject) jsonParser.parse(response.toString());
 
@@ -76,6 +86,17 @@ public class WeatherPullService extends IntentService {
 
                                 if(weather != null) {
                                     Log.d(TAG, weather.getDataWeather().getHumidity());
+/*
+                                    Util util =  new Util();
+                                    Float tempCelsius = util.kelvinToCelsius(Float.parseFloat(weather.getDataWeather().getTemp()));
+
+                                    textV_name.setText(weather.getName());
+                                    textV_temp.setText(tempCelsius + "ºC");
+                                    textV_hum.setText(weather.getDataWeather().getHumidity());
+                                    textV_desc.setText(weather.getWeather()[0].getDescription());
+
+                                    String dateTime = DateFormat.getDateTimeInstance().format(new Date());
+                                    textV_date.setText(dateTime);*/
 
                                     // setear la vista con los datos del clima
                                 }
