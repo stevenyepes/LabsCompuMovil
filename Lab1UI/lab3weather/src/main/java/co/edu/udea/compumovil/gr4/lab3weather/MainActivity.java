@@ -178,6 +178,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            Calendar updateTime = Calendar.getInstance();
+            updateTime.setTimeZone(TimeZone.getDefault());
+            updateTime.set(Calendar.HOUR_OF_DAY, 11);
+            updateTime.set(Calendar.MINUTE, 17);
+            Intent downloader = new Intent(getApplicationContext(), StartServiceReciever.class);
+            downloader.putExtra("cityToService", city);
+            Log.d(TAG, city);
+            downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, downloader,       PendingIntent.FLAG_CANCEL_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), refresh*1000*60, pendingIntent);
+
 
         }
 
@@ -185,21 +200,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickButton(View view) {
 
-        Calendar updateTime = Calendar.getInstance();
-        updateTime.setTimeZone(TimeZone.getDefault());
-        updateTime.set(Calendar.HOUR_OF_DAY, 11);
-        updateTime.set(Calendar.MINUTE, 17);
-        Intent downloader = new Intent(getApplicationContext(), StartServiceReciever.class);
-        downloader.putExtra("cityToService", city);
-        Log.d(TAG, city);
-        downloader.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, downloader,       PendingIntent.FLAG_CANCEL_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), refresh*1000*60, pendingIntent);
-
+       if(!"".equals(city)){
+           Intent downloader = new Intent(getApplicationContext(), WeatherPullService.class);
+           downloader.putExtra("cityToService", city);
+           startService(downloader);
+       }else {
+           Toast.makeText(this,"Please set a city in settings", Toast.LENGTH_LONG).show();
+       }
 
     }
 
