@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -36,6 +37,10 @@ import co.edu.udea.compumovil.gr4.lab3weather.models.WeatherFull;
 public class WeatherPullService extends IntentService {
 
     private static final String TAG = "weatherApp";
+    static final public String COPA_RESULT = "co.edu.udea.compumovil.gr4.lab3weather.REQUEST_PROCESSED";
+    public static final String WEATHER_RESULT = "weather";
+    LocalBroadcastManager broadcaster;
+
     public WeatherPullService() {
         super("WeatherPullService");
     }
@@ -47,6 +52,7 @@ public class WeatherPullService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
+            broadcaster = LocalBroadcastManager.getInstance(this);
             Log.d("MyService", "About to execute MyTask");
 
             String city = intent.getExtras().getString("cityToService");
@@ -86,7 +92,11 @@ public class WeatherPullService extends IntentService {
 
                                 if(weather != null) {
                                     Log.d(TAG,"Pull done");
+                                    Intent intent = new Intent(COPA_RESULT);
+                                    intent.putExtra(WEATHER_RESULT, weather);
+                                    broadcaster.sendBroadcast(intent);
 
+                                    Log.d(TAG, weather.getDataWeather().getHumidity());
 
                                 }
                                 else

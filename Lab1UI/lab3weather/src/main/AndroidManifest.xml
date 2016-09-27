@@ -21,7 +21,11 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".StartServiceReciever" ></receiver>
+        <receiver android:name=".StartServiceReciever" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
         <receiver android:name=".MyWidgetProvider">
             <intent-filter>
@@ -40,5 +44,9 @@
 
         <activity android:name=".SelectCity"></activity>
     </application>
+
+    <!-- Adding the permission -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
 </manifest>

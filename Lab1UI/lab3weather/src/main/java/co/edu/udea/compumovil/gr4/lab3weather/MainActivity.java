@@ -1,12 +1,20 @@
 package co.edu.udea.compumovil.gr4.lab3weather;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -47,13 +55,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText choicedCity;
     private static final int REQUEST_CODE = 10;
     private static String city = "";
-
+    private BroadcastReceiver receiver;
+    WeatherFull weather;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         textV_name = (TextView)findViewById(R.id.name);
         textV_temp = (TextView)findViewById(R.id.temperature);
@@ -62,14 +72,37 @@ public class MainActivity extends AppCompatActivity {
         textV_date = (TextView)findViewById(R.id.date);
         imgWeather = (ImageView) findViewById(R.id.weather_img);
 
-        /*if(savedInstanceState == null){
-            fmenu = new FragmentMenu();
-            FragmentTransaction fMenuTransaction = getSupportFragmentManager().beginTransaction();
-            fMenuTransaction.add(R.id.main_layout, fmenu, "FMENU");
-            fMenuTransaction.commit();
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                weather = (WeatherFull) intent.getSerializableExtra(WeatherPullService.WEATHER_RESULT);
+                textV_name = (TextView)findViewById(R.id.name);
+                textV_temp = (TextView)findViewById(R.id.temperature);
+                textV_hum = (TextView)findViewById(R.id.humidity);
+                textV_desc = (TextView)findViewById(R.id.description);
+                textV_date = (TextView)findViewById(R.id.date);
 
 
-        }*/
+                Util util =  new Util();
+                Float tempCelsius = util.kelvinToCelsius(Float.parseFloat(weather.getDataWeather().getTemp()));
+
+                textV_name.setText(weather.getName());
+                textV_temp.setText(tempCelsius + "ºC");
+                textV_hum.setText(weather.getDataWeather().getHumidity());
+                textV_desc.setText(weather.getWeather()[0].getDescription());
+
+                String dateTime = DateFormat.getDateTimeInstance().format(new Date());
+                textV_date.setText(dateTime);
+
+
+                String imageUrl = "http://openweathermap.org/img/w/" + weather.getWeather()[0].getIcon()
+                        + ".png";
+                Log.d(TAG,"LLegue");
+
+
+            }
+        };
 
     }
 
@@ -93,11 +126,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intentCity = new Intent(getApplicationContext(), SelectCity.class);
             startActivityForResult(intentCity, REQUEST_CODE);
 
-            /*fmenu = new FragmentMenu();
-            FragmentTransaction fMenuTransaction = getSupportFragmentManager().beginTransaction();
-            fMenuTransaction.add(R.id.main_layout, fmenu);
-            fMenuTransaction.commit();
-            return true;*/
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
             if(data.hasExtra("carryCity")){
                 city = data.getExtras().getString("carryCity");
+                Log.d(TAG,city);
             }
         }
 
@@ -179,19 +209,54 @@ public class MainActivity extends AppCompatActivity {
     public void onClickButton(View view) {
 
 
-/*
-        Intent iService = new Intent(getApplicationContext(), WeatherPullService.class);
-        iService.setAction("co.edu.udea.compumovil.gr4.lab3weather.action.RUN_INTENT_SERVICE");
-        iService.putExtra("cityToService", city);
-        startService(iService);*/
+
+        /*Calendar updateTime = Calendar.getInstance();
+        updateTime.setTimeZone(TimeZone.getDefault());
+        updateTime.set(Calendar.HOUR_OF_DAY, 12);
+        updateTime.set(Calendar.MINUTE, 30);
+
+        Intent iBroadcast = new Intent(getApplicationContext(), StartServiceReciever.class);
+        iBroadcast.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //iBroadcast.setAction("co.edu.udea.compumovil.gr4.lab3weather.action.RUN_INTENT_BROADCAST");
+        iBroadcast.putExtra("cityToService", city);
 
 
-        final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
-        final String PARAMS = "?q=" + city + "&appid=" + APPID;
-        final String REQUEST = "/weather";
-        final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
-        String URL = BASE_URL + REQUEST + PARAMS;
-        sendRequest(URL);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, iBroadcast, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(getApplicationContext().ALARM_SERVICE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, updateTime.getTimeInMillis(), 30*1000, pendingIntent);
+
+        Toast.makeText(getApplicationContext(), "Broadcast started", Toast.LENGTH_SHORT).show();
+        */
+
+        Intent intent = new Intent(this, StartServiceReciever.class);
+        intent.putExtra("cityToService", city);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (10 * 1000), pendingIntent);
+
+        Toast.makeText(this, "Alarm set in " + 10 + " seconds", Toast.LENGTH_LONG).show();
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((receiver),
+                new IntentFilter(WeatherPullService.COPA_RESULT)
+        );
+
+
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onStop();
     }
 
 
