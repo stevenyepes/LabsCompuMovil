@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".StartServiceReciever" ></receiver>
+
         <receiver android:name=".MyWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>

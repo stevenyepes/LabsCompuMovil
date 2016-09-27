@@ -2,10 +2,12 @@ package co.edu.udea.compumovil.gr4.lab3weather.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by steven on 23/09/16.
  */
-public class WeatherFull {
+public class WeatherFull implements Serializable{
 
     Weather[] weather;
     @SerializedName("main")

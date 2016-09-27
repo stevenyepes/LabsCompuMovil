@@ -85,20 +85,9 @@ public class WeatherPullService extends IntentService {
                                 WeatherFull weather = gson.fromJson(jo, WeatherFull.class);
 
                                 if(weather != null) {
-                                    Log.d(TAG, weather.getDataWeather().getHumidity());
-/*
-                                    Util util =  new Util();
-                                    Float tempCelsius = util.kelvinToCelsius(Float.parseFloat(weather.getDataWeather().getTemp()));
+                                    Log.d(TAG,"Pull done");
 
-                                    textV_name.setText(weather.getName());
-                                    textV_temp.setText(tempCelsius + "ºC");
-                                    textV_hum.setText(weather.getDataWeather().getHumidity());
-                                    textV_desc.setText(weather.getWeather()[0].getDescription());
 
-                                    String dateTime = DateFormat.getDateTimeInstance().format(new Date());
-                                    textV_date.setText(dateTime);*/
-
-                                    // setear la vista con los datos del clima
                                 }
                                 else
                                     Log.d(TAG, "**earthQuakes is null " );
