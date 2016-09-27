@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -36,24 +37,27 @@ import co.edu.udea.compumovil.gr4.lab3weather.models.WeatherFull;
 public class WeatherPullService extends IntentService {
 
     private static final String TAG = "weatherApp";
+    static final public String COPA_RESULT = "co.edu.udea.compumovil.gr4.lab3weather.REQUEST_PROCESSED";
+    public static final String WEATHER_RESULT = "weather";
+
     public WeatherPullService() {
         super("WeatherPullService");
     }
-    private TextView textV_name, textV_temp, textV_hum, textV_desc, textV_date;
 
+    LocalBroadcastManager broadcaster;
 
 
 
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            Log.d("MyService", "About to execute MyTask");
+            broadcaster = LocalBroadcastManager.getInstance(this);
 
             String city = intent.getExtras().getString("cityToService");
+            Log.d(TAG,city);
 
             final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
-            //String city = "london";
-            final String PARAMS = "?q=" + city + "&appid=" + APPID;
+            final String PARAMS = "?q=" + city+ "&appid=" + APPID;
             final String REQUEST = "/weather";
             final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
             String URL = BASE_URL + REQUEST + PARAMS;
@@ -85,12 +89,17 @@ public class WeatherPullService extends IntentService {
                                 WeatherFull weather = gson.fromJson(jo, WeatherFull.class);
 
                                 if(weather != null) {
+
                                     Log.d(TAG,"Pull done");
 
+                                    Intent intent = new Intent(COPA_RESULT);
+                                    intent.putExtra(WEATHER_RESULT, weather);
+                                    broadcaster.sendBroadcast(intent);
 
+                                    Log.d(TAG, weather.getDataWeather().getHumidity());
                                 }
                                 else
-                                    Log.d(TAG, "**earthQuakes is null " );
+                                    Log.d(TAG, "**Wheather is null " );
 
                             }
                         }, new Response.ErrorListener() {

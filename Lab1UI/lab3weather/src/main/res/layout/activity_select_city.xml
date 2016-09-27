@@ -21,7 +21,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:textSize="30dp"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -47,6 +47,34 @@
             android:layout_marginTop="10dp"
             android:textColor="@android:color/darker_gray"
             android:hint="city to investigate"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/textview_time"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:text="@string/time" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edittext_time"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/darker_gray"
+            android:hint="@string/refresh_time"
+            android:inputType="number" />
 
     </LinearLayout>
 

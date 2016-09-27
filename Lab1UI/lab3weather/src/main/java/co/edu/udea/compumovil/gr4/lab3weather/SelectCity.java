@@ -9,6 +9,7 @@ import android.widget.EditText;
 public class SelectCity extends AppCompatActivity {
 
     private EditText choicedCity;
+    private EditText timeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +19,21 @@ public class SelectCity extends AppCompatActivity {
 
     public  void onCityEntered(View view){
         choicedCity = (EditText) findViewById(R.id.edittext_city);
+        timeRefresh = (EditText)findViewById(R.id.edittext_time);
+
         String sendCity = choicedCity.getText().toString();
+        String sendRefresh = timeRefresh.getText().toString();
+        if (sendRefresh.isEmpty()) {
+
+            sendRefresh = "60";
+        }
 
         Intent intentCity = new Intent();
 
         intentCity.putExtra("carryCity",sendCity);
+        intentCity.putExtra("refresh",sendRefresh);
         setResult(RESULT_OK, intentCity);
+
         super.finish();
 
     }
