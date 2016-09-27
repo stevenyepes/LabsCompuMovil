@@ -4,6 +4,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="time">Enter refresh time</string>
-    <string name="refresh_time">RefreshTime</string>
+    <string name="time">Refresh time</string>
+    <string name="refresh_time">In minutes</string>
+    <string name="save">Save</string>
+    <string name="enter_city">Enter a city</string>
 </resources>

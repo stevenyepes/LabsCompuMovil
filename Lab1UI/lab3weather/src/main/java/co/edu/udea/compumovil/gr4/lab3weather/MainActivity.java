@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 
-
-
+import java.io.InputStream;
 import java.text.DateFormat;
 
 import java.util.Calendar;
@@ -87,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
                 String imageUrl = "http://openweathermap.org/img/w/" + weather.getWeather()[0].getIcon()
                         + ".png";
-                Log.d(TAG,"LLegue");
+
+                new DownloadImageTask((ImageView) findViewById(R.id.weather_img)) .execute(imageUrl);
 
 
             }
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String imageUrl = "http://openweathermap.org/img/w/" + weather.getWeather()[0].getIcon()
                         + ".png";
-                Log.d(TAG, "LLegue");
+                new DownloadImageTask((ImageView) findViewById(R.id.weather_img)) .execute(imageUrl);
             }
         };
 
@@ -216,6 +219,31 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
     }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 
 }
 

@@ -111,9 +111,10 @@
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weather_img"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/weather_img"
+        android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
