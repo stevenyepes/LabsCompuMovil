@@ -22,6 +22,7 @@ public class SelectCity extends AppCompatActivity {
         timeRefresh = (EditText)findViewById(R.id.edittext_time);
 
         String sendCity = choicedCity.getText().toString();
+        sendCity = sendCity.replaceAll(" ","%20");
         String sendRefresh = timeRefresh.getText().toString();
         if (sendRefresh.isEmpty()) {
 
