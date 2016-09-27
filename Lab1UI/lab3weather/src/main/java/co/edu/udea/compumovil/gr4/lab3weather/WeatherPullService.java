@@ -40,12 +40,12 @@ public class WeatherPullService extends IntentService {
     static final public String COPA_RESULT = "co.edu.udea.compumovil.gr4.lab3weather.REQUEST_PROCESSED";
     public static final String WEATHER_RESULT = "weather";
 
+    LocalBroadcastManager broadcaster;
+
+
     public WeatherPullService() {
         super("WeatherPullService");
     }
-
-    LocalBroadcastManager broadcaster;
-
 
 
     @Override
@@ -53,8 +53,9 @@ public class WeatherPullService extends IntentService {
         if (intent != null) {
             broadcaster = LocalBroadcastManager.getInstance(this);
 
+
             String city = intent.getExtras().getString("cityToService");
-            Log.d(TAG,city);
+            //Log.d(TAG,city);
 
             final String APPID = "6f0003d0842a175ea9003bfecf8121b7";
             final String PARAMS = "?q=" + city+ "&appid=" + APPID;
@@ -91,7 +92,6 @@ public class WeatherPullService extends IntentService {
                                 if(weather != null) {
 
                                     Log.d(TAG,"Pull done");
-
                                     Intent intent = new Intent(COPA_RESULT);
                                     intent.putExtra(WEATHER_RESULT, weather);
                                     broadcaster.sendBroadcast(intent);
