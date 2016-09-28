@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private static String city = "";
 
     private static Long refresh = 1L;
-    WeatherFull weather;
+    public static WeatherFull weather;
     private BroadcastReceiver receiver;
 
     private AlarmManager alarmMgr;
