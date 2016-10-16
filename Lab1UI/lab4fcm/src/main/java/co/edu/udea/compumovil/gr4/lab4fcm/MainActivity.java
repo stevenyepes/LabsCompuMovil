@@ -1,16 +1,23 @@
 package co.edu.udea.compumovil.gr4.lab4fcm;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +57,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onStart() {
@@ -72,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 // Get Post object and use the values to update the UI
                                 User user = dataSnapshot.getValue(User.class);
-                                viewHolder.mUser.setText(user.getDisplayName());
+                                viewHolder.mUser.setText(user.getDisplayName()+":");
 
                             }
 
