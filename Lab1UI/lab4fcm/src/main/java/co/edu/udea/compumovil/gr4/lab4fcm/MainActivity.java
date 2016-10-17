@@ -1,66 +1,67 @@
 package co.edu.udea.compumovil.gr4.lab4fcm;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-import co.edu.udea.compumovil.gr4.lab4fcm.entities.ChatMessage;
-import co.edu.udea.compumovil.gr4.lab4fcm.entities.User;
-
-
-public class MainActivity extends AppCompatActivity {
-
-    private DatabaseReference mDatabase;
-    private DatabaseReference mUsers;
-    private FirebaseAuth auth;
-    private RecyclerView chatList;
-    private EditText newMessage;
-
-
+    Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        chatList = (RecyclerView) findViewById(R.id.message_list);
-        newMessage = (EditText) findViewById(R.id.new_message);
-        chatList.setHasFixedSize(true);
-        chatList.setLayoutManager(new LinearLayoutManager(this));
-        auth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("chats");
-        mUsers = FirebaseDatabase.getInstance().getReference().child("users");
-        mDatabase.keepSynced(true);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.drawer_layout, new GeneralChatFragment());
+        ft.commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -72,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-
+        if (id == R.id.action_settings) {
             AuthUI.getInstance()
                     .signOut(this)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -85,82 +85,40 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
-
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public void onStart() {
-        super.onStart();
-
-        final FirebaseRecyclerAdapter<ChatMessage, MessageViewHolder> adapter =
-                new FirebaseRecyclerAdapter<ChatMessage, MessageViewHolder>(
-
-                        ChatMessage.class,
-                        R.layout.item,
-                        MessageViewHolder.class,
-                        mDatabase
-                ) {
-                    @Override
-                    protected void populateViewHolder(final MessageViewHolder viewHolder,
-                                                      final ChatMessage model, final int position) {
-                        viewHolder.mText.setText(model.getMtext());
-                        ValueEventListener userListener = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                // Get Post object and use the values to update the UI
-                                User user = dataSnapshot.getValue(User.class);
-                                viewHolder.mUser.setText(user.getDisplayName()+":");
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                // Getting Post failed, log a message
-                                Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException());
-                                // ...
-                            }
-                        };
-                        mUsers.child(model.getmSender()).addListenerForSingleValueEvent(userListener);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
 
-                    }
-                };
+        if (id == R.id.general_chat) {
+            fragment = new GeneralChatFragment();
 
-        chatList.setAdapter(adapter);
-    }
+        } else if (id == R.id.nav_gallery) {
 
-    public  static class MessageViewHolder
-            extends RecyclerView.ViewHolder {
+        } else if (id == R.id.nav_slideshow) {
 
-        TextView mText;
-        TextView mUser;
+        } else if (id == R.id.nav_manage) {
 
+        } else if (id == R.id.nav_share) {
 
-        public MessageViewHolder(View itemView) {
-            super(itemView);
-            mText = (TextView) itemView.findViewById(R.id.msg);
-            mUser = (TextView) itemView.findViewById(R.id.user);
+        } else if (id == R.id.nav_send) {
 
         }
 
 
-    }
-
-    public void onSendClick(View view) {
-
-        String msg = newMessage.getText().toString();
-
-        if(!TextUtils.isEmpty(msg)){
-            ChatMessage chat = new ChatMessage();
-            chat.setmDate(new Date());
-            chat.setmSender(auth.getCurrentUser().getUid());
-            chat.setMtext(msg);
-            mDatabase.push().setValue(chat);
-            newMessage.setText("");
-
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.drawer_layout, fragment);
+            ft.commit();
         }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
