@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +26,7 @@ import com.google.android.gms.tasks.Task;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Fragment fragment;
+    Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.drawer_layout, new GeneralChatFragment());
-        ft.commit();
+        //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //ft.replace(R.id.drawer_layout, new GeneralChatFragment());
+        //ft.commit();
 
     }
 
@@ -85,6 +87,17 @@ public class MainActivity extends AppCompatActivity
                     });
         }
 
+        if (id == R.id.action_contacts){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.drawer_layout, new UsersFragment());
+            ft.commit();
+        }
+        if (id == R.id.action_chat){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.drawer_layout, new GeneralChatFragment());
+            ft.commit();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -97,8 +110,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.general_chat) {
             fragment = new GeneralChatFragment();
+            Log.d("tag", "GeneralChatFragment");
 
         } else if (id == R.id.nav_gallery) {
+            fragment = new UsersFragment();
+            Log.d("tag2", "UsersFragment");
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -112,9 +128,11 @@ public class MainActivity extends AppCompatActivity
 
 
         if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.drawer_layout, fragment);
-            ft.commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
+            Log.d("tag3", "fragment comitted");
+        }else {
+            fragment = new GeneralChatFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

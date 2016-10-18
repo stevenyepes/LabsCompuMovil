@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorChat">#7dc3f2</color>
+    <color name="colorButton">#FF475299</color>
 </resources>
