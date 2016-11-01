@@ -1,6 +1,22 @@
 
-<ion-view title="SpinnerBank">
+<ion-view title="Weather App">
   <ion-content padding="true" class="has-header">
-    <h1>Hola mundo</h1>
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" ng-model="city" placeholder="Enter a city">
+      </label>
+    </div>
+
+    <div class="card">
+      <div class="item item-text-wrap">temperature: {{temperature | number : 2 }} °C</div>
+      <div class="item item-text-wrap">humidity: {{humidity | number : 2 }} </div>
+    </div>
+
+    <button class="button button-full button-positive" ng-click="search(city)">
+      Search
+    </button>
+
+
+
   </ion-content>
 </ion-view>
