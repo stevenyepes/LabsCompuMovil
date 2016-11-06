@@ -2,18 +2,19 @@ angular.module('starter.services', [])
 
 .service('getWeatherByCityService', function ($http) {
 
-  var url = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  var url = 'http://api.openweathermap.org/data/2.5/weather?';
   var appID = '6f0003d0842a175ea9003bfecf8121b7';
 
-  this.getWeather  = function (city) {
+  this.getWeather  = function (query) {
 
     return $http({
       method: 'GET',
-      url: url + city,
+      url: url + query,
       params: {
         appid: appID
       },
     });
   };
 
-});
+})
+;
