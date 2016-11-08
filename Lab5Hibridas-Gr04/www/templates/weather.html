@@ -1,12 +1,36 @@
 
 <ion-view title="Weather App">
   <ion-content padding="true" class="has-header">
-    <div class="list">
+    <div class="ui-widget">
       <label class="item item-input">
-          <input type="text" ng-model="city" placeholder="Enter a city">
+          <input type="text" ng-model="city" placeholder="Enter a city" id="nameCity" list="colombianCities">
+          <datalist id="colombianCities">
+            <option value="Medellin"/>
+            <option value="Bogota"/>
+            <option value="Cartagena"/>
+            <option value="Barranquilla"/>
+            <option value="Cali"/>
+            <option value="Manizales"/>
+            <option value="Turbo"/>
+            <option value="Ibague"/>
+            <option value="Cucuta"/>
+            <option value="Villavicencio"/>
+            <option value="Valledupar"/>
+            <option value="Envigado"/>
+          </datalist>
         </label>
     </div>
+<!--
+    <script>
+      var element = document.getElementById('nameCity');
+      new Awesomplete(element,{
+        list: ["Medellin", "Bogota", "Cali", "Barranquilla", "Cartagena", "Turbo"]
+      })
+    </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.1/
+  awesomplete.min.js"></script>
+-->
     <div class="card">
       <div class="item item-text-wrap">City: {{city}}</div>
       <div class="item item-text-wrap">Temperature: {{temperature | number : 2 }} °C</div>
